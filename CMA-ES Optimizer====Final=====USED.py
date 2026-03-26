@@ -1,6 +1,6 @@
 ##########################################################################################
 # IMPROVED CMA-ES (Covariance Matrix Adaptation Evolution Strategy)
-#   1. Objective now uses full training MSE (5-fold CV) → allows stronger overfitting for higher train R²
+#   1. Objective now uses full training MSE → allows stronger overfitting for higher train R²
 #   2. Added n_jobs=-1 to RandomForest → parallel training (big speed boost)
 #   3. Reduced maxiter to 30 and kept popsize=10 → total evaluations drop dramatically
 #   4. Expanded search space (n_estimators up to 2000, max_depth up to 50) → more capacity for 0.99+ R²
@@ -62,7 +62,7 @@ def objective(params):
         n_jobs=-1                     # ← PARALLEL TRAINING = BIG SPEED-UP
     )
 
-    # Fit on full training data (no CV) to minimize train error directly
+    # Fit on full training data to minimize train error directly
     reg.fit(X_train, y_train)
     y_pred = reg.predict(X_train)
     
